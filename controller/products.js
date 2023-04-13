@@ -44,6 +44,7 @@ const controller = {
             .catch(err => res.status(400).json("Error:" + err))
     },
 
+    //Product Category controller
     productCategory: (req, res) => {
 
         const category = req.params.category
@@ -66,6 +67,43 @@ const controller = {
             .then(() => res.json("Producto eliminado"))
             .catch(err => res.status(400).json("Error:" + err))
     },
+
+    //Product search controller
+    productSearch: (req, res) => {
+        const searchTerm = req.params.id
+        console.log("🚀 ~ file: products.js:74 ~ searchTerm:", searchTerm)
+        
+        if(searchTerm){
+        Product.find({
+            "$or": [
+                { nombre: { $regex: searchTerm, $options: 'i' } },
+                { categoria: { $regex: searchTerm, $options: 'i' } }
+            ]
+        }).then((product) => {
+            res.json(product)
+        })
+            .catch(err => res.status(400).json("Error:" + err))
+        }
+    },
+
+    //Product search controller for search page
+    productSearchPage: (req,res) => {
+        const searchTerm = req.params.id
+
+        Product.find({
+            "$or": [
+                { nombre: { $regex: searchTerm, $options: 'i' } },
+                { categoria: { $regex: searchTerm, $options: 'i' } }
+            ]
+        }).then((product) => {
+            if (product.length === 0) {
+                res.status(404).json("Ups! no se encontro un resultado")
+            }else{
+            res.json(product)
+            }
+        })
+            .catch(err => res.status(400).json("Error:" + err))
+    }
 }
 
 module.exports = controller

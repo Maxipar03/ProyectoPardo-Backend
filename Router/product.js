@@ -27,5 +27,9 @@ router.get("/:id",controller.productDetail)
 router.get("/category/:category", controller.productCategory)
 //Ruta para eliminar producto
 router.delete("/delete/:id",controller.productDelete)
+//Ruta para buscar el producto
+router.get("/search/:id",controller.productSearch)
+//Ruta para la pagina de buscar el producto
+router.get("/search/page/:id",controller.productSearch)
 
 module.exports = router
