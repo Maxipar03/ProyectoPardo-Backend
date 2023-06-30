@@ -9,6 +9,10 @@ const userSchema = new Schema({
     apellido: String,
     email: String,
     contraseña: String,
+    rol:{
+        type:String,
+        default:"user"
+    }
 })
 
 // Metodo el cual hashea la contraseña //

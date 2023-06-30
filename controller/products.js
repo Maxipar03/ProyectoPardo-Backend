@@ -73,7 +73,7 @@ const controller = {
         const searchTerm = req.params.id
         console.log("🚀 ~ file: products.js:74 ~ searchTerm:", searchTerm)
         
-        if(searchTerm){
+        if(searchTerm.length > 0){
         Product.find({
             "$or": [
                 { nombre: { $regex: searchTerm, $options: 'i' } },
